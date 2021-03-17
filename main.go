@@ -13,14 +13,7 @@ import (
 )
 
 func runNode(router *gin.Engine) {
-	// mount router to routes
-	routers.MountDatabaseIORouter(router)
-	routers.ServerOperation(router)
 
-	// running on port
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "from 5000")
-	})
 	router.Run(":5000")
 
 }
@@ -28,6 +21,15 @@ func runNode(router *gin.Engine) {
 func main() {
 	// create the router
 	router := gin.Default()
+	// mount router to routes
+	routers.MountDatabaseIORouter(router)
+	routers.ServerOperation(router)
+	// handle routing
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "from 5000")
+	})
+
+	// running on port
 	go runNode(router) // run goroutine to run the server and prevent blocking
 
 	// create the router
