@@ -1,0 +1,38 @@
+###
+GET http://localhost:5000/key-value-pair?node=server:1&key=email
+
+###
+POST http://localhost:5000/key-value-pair
+Content-Type: application/json
+
+{
+    "node": "server:1",
+    "key": "aobo1",
+    "value": "The king1"
+}
+
+###
+PUT http://localhost:5000/key-value-pair
+Content-Type: application/json
+
+{
+    "node": "server:1",
+    "key": "aobo",
+    "value": "The queen"
+}
+
+###
+DELETE http://localhost:5000/key-value-pair?node=server:1&key=aobo1
+
+###
+POST http://localhost:5000/node
+Content-Type: application/json
+
+{
+    "node": "server:1",
+    "firstKey": "name",
+    "firstValue": "aobo"
+}
+
+###
+DELETE http://localhost:5000/node?node=server:1
