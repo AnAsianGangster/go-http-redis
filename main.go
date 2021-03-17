@@ -12,49 +12,54 @@ import (
 	"github.com/go-redis/redis"
 )
 
-func main() {
-	// create the router
-/* 	router := gin.Default()
-
+func runNode(router *gin.Engine) {
 	// mount router to routes
 	routers.MountDatabaseIORouter(router)
 	routers.ServerOperation(router)
 
 	// running on port
-	router.GET("/", func(c *gin.Context){
+	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "from 5000")
 	})
-	router.Run(":5000") */
+	router.Run(":5000")
+
+}
+
+func main() {
 	// create the router
-	router1 := gin.Default()
+	router := gin.Default()
+	go runNode(router) // run goroutine to run the server and prevent blocking
 
-	// mount router to routes
-	routers.MountDatabaseIORouter(router1)
-	routers.ServerOperation(router1)
-
-	router1.GET("/", func(c *gin.Context){
-		c.String(http.StatusOK, "from 5001")
-	})
-	// running on port
-	router1.Run(":5001")
 	// create the router
-	router2 := gin.Default()
+	// router1 := gin.Default()
 
-	// mount router to routes
-	routers.MountDatabaseIORouter(router2)
-	routers.ServerOperation(router2)
+	// // mount router to routes
+	// routers.MountDatabaseIORouter(router1)
+	// routers.ServerOperation(router1)
 
-	// running on port
-	router2.Run(":5002")
-	// create the router
-	router3 := gin.Default()
+	// router1.GET("/", func(c *gin.Context){
+	// 	c.String(http.StatusOK, "from 5001")
+	// })
+	// // running on port
+	// router1.Run(":5001")
+	// // create the router
+	// router2 := gin.Default()
 
-	// mount router to routes
-	routers.MountDatabaseIORouter(router3)
-	routers.ServerOperation(router3)
+	// // mount router to routes
+	// routers.MountDatabaseIORouter(router2)
+	// routers.ServerOperation(router2)
 
-	// running on port
-	router3.Run(":5003")
+	// // running on port
+	// router2.Run(":5002")
+	// // create the router
+	// router3 := gin.Default()
+
+	// // mount router to routes
+	// routers.MountDatabaseIORouter(router3)
+	// routers.ServerOperation(router3)
+
+	// // running on port
+	// router3.Run(":5003")
 
 	// connection to the redis
 	redisClient := redis.NewClient(&redis.Options{
@@ -94,4 +99,11 @@ func main() {
 		}
 		fmt.Println(val.(string))
 	*/
+
+	for {
+		select {
+		default:
+			// do something here
+		}
+	}
 }
