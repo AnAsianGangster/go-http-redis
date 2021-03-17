@@ -3,14 +3,59 @@ package main
 import (
 	"fmt"
 	"go-http-redis/config"
+	"go-http-redis/routers"
 	"go-http-redis/server"
 	"go-http-redis/util"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 )
 
 func main() {
-	// fmt.Println("Hello World!")
+	// create the router
+/* 	router := gin.Default()
+
+	// mount router to routes
+	routers.MountDatabaseIORouter(router)
+	routers.ServerOperation(router)
+
+	// running on port
+	router.GET("/", func(c *gin.Context){
+		c.String(http.StatusOK, "from 5000")
+	})
+	router.Run(":5000") */
+	// create the router
+	router1 := gin.Default()
+
+	// mount router to routes
+	routers.MountDatabaseIORouter(router1)
+	routers.ServerOperation(router1)
+
+	router1.GET("/", func(c *gin.Context){
+		c.String(http.StatusOK, "from 5001")
+	})
+	// running on port
+	router1.Run(":5001")
+	// create the router
+	router2 := gin.Default()
+
+	// mount router to routes
+	routers.MountDatabaseIORouter(router2)
+	routers.ServerOperation(router2)
+
+	// running on port
+	router2.Run(":5002")
+	// create the router
+	router3 := gin.Default()
+
+	// mount router to routes
+	routers.MountDatabaseIORouter(router3)
+	routers.ServerOperation(router3)
+
+	// running on port
+	router3.Run(":5003")
+
 	// connection to the redis
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     config.GetRedisConfig().ADDRESS,
@@ -37,16 +82,16 @@ func main() {
 	server2AllVal := server.GetAllKeyValuePair("server:2", redisClient)
 	util.PrintArrayInterface(server2AllVal)
 
-	/* 
-	// flush redis
-	val, err := redisClient.Do("FLUSHALL").Result()
-	if err != nil {
-		if err == redis.Nil {
-			fmt.Println("FLUSHALL failed")
-			return
+	/*
+		// flush redis
+		val, err := redisClient.Do("FLUSHALL").Result()
+		if err != nil {
+			if err == redis.Nil {
+				fmt.Println("FLUSHALL failed")
+				return
+			}
+			panic(err)
 		}
-		panic(err)
-	}
-	fmt.Println(val.(string))
-	 */
+		fmt.Println(val.(string))
+	*/
 }

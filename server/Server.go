@@ -15,8 +15,8 @@ func CreateServer(serverName string, redisClient *redis.Client) bool {
 		}
 		panic(err)
 	}
-	
-	if (redisResponse.(int64) == 0){
+
+	if redisResponse.(int64) == 0 {
 		return true
 	} else {
 		return false
@@ -32,8 +32,8 @@ func AddKeyValuePair(serverName string, redisClient *redis.Client, key string, v
 		}
 		panic(err)
 	}
-	
-	if (redisResponse.(int64) == 0){
+
+	if redisResponse.(int64) == 0 {
 		return true
 	} else {
 		return false
@@ -50,4 +50,17 @@ func GetAllKeyValuePair(serverName string, redisClient *redis.Client) []interfac
 		panic(err)
 	}
 	return redisResponse.([]interface{})
+}
+
+func FindOneKeyValuePair(serverName string, redisClient *redis.Client, key string) string {
+	redisResponse, err := redisClient.Do("HGET", serverName, key).Result()
+	if err != nil {
+		if err == redis.Nil {
+			fmt.Println("HGET failed, creating server failed")
+			return "" // FIXME return nil
+		}
+		panic(err)
+	}
+
+	return redisResponse.(string)
 }
