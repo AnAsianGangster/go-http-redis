@@ -1,3 +1,21 @@
+/*
+ * Author: Yang Aobo
+ * Telegram: @AnAsianGangster
+ * Created At: March 17, 2021
+ * Updated At: March 18, 2021
+ * Last Modified By: Yang Aobo
+ */
+
+/**
+ * This package contains HTTP handler functions
+ *
+ *
+ * This file contains handler functions that handle creation & deletion operations
+ * on redis HSET
+ *
+ * All functions destructure HTTP requests, call database operations, build response
+ * and reply with response
+ */
 package controllers
 
 import (
