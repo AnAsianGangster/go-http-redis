@@ -17,8 +17,10 @@ func CreateServer(serverName string, redisClient *redis.Client) bool {
 	}
 
 	if redisResponse.(int64) == 0 {
+		fmt.Printf("%v --- has been succesfully created", serverName)
 		return true
 	} else {
+		fmt.Printf("%v --- failed to be created", serverName)
 		return false
 	}
 }
