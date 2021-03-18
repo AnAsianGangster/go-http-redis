@@ -1,3 +1,17 @@
+/*
+ * Author: Yang Aobo
+ * Telegram: @AnAsianGangster
+ * Created At: March 17, 2021
+ * Updated At: March 17, 2021
+ * Last Modified By: Yang Aobo
+ */
+
+/**
+ * This package contains functions do database I/O operations
+ *
+ *
+ * This file contains functions that create & delete on redis HSET
+ */
 package databases
 
 import (
