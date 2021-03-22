@@ -18,7 +18,6 @@
 package controllers
 
 import (
-	"fmt"
 	"go-http-redis/databases"
 	"go-http-redis/tools"
 	"log"
@@ -36,7 +35,6 @@ func FindOneKeyValuePair(context *gin.Context) {
 	redisClient := tools.GetRedisClient()
 	node := context.Query("node")
 	key := context.Query("key")
-	fmt.Println(node, key)
 	value := databases.FindOneKeyValuePair(node, redisClient, key)
 	context.JSON(200, gin.H{
 		"key":   key,
