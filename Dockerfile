@@ -6,5 +6,3 @@ COPY . .
 RUN go install
 
 CMD ["go", "run", "main.go"]
-
-EXPOSE 5000 6379
