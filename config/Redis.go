@@ -26,7 +26,8 @@ var redisConfig *config
 func init() {
 	//initialize static instance on load
 	redisConfig = &config{
-		ADDRESS:  "localhost:6379",
+		// ADDRESS:  "localhost:6379", // NOTE this is redis local host
+		ADDRESS: "redis:6379", // NOTE this is redis docker container
 		PASSWORD: "",
 		DB:       0,
 	}
