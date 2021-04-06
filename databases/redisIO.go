@@ -1,4 +1,4 @@
-package server
+package databases
 
 import (
 	"fmt"
@@ -6,18 +6,17 @@ import (
 	"github.com/go-redis/redis"
 )
 
-func CreateServer(serverName string, redisClient *redis.Client) bool {
-	redisResponse, err := redisClient.Do("HSET", serverName, "firstKey", "firstValue").Result()
+func AddKeyValuePair(serverName string, redisClient *redis.Client, key string, value string) bool {
+	redisResponse, err := redisClient.Do("HSET", serverName, key, value).Result()
 	if err != nil {
 		if err == redis.Nil {
-			fmt.Println("HSET failed, creating server failed")
+			fmt.Println("HSET failed, add key value pair failed")
 			return false
 		}
 		panic(err)
 	}
 
-	if redisResponse.(int64) == 0 {
-		fmt.Printf("%v --- has been succesfully created", serverName)
+	if redisResponse.(int64) == 1 {
 		return true
 	} else {
 		fmt.Printf("%v --- failed to be created", serverName)
@@ -25,7 +24,7 @@ func CreateServer(serverName string, redisClient *redis.Client) bool {
 	}
 }
 
-func AddKeyValuePair(serverName string, redisClient *redis.Client, key string, value string) bool {
+func UpdateKeyValuePair(serverName string, redisClient *redis.Client, key string, value string) bool {
 	redisResponse, err := redisClient.Do("HSET", serverName, key, value).Result()
 	if err != nil {
 		if err == redis.Nil {
@@ -59,10 +58,27 @@ func FindOneKeyValuePair(serverName string, redisClient *redis.Client, key strin
 	if err != nil {
 		if err == redis.Nil {
 			fmt.Println("HGET failed, creating server failed")
-			return "" // FIXME return nil
+			return ""
 		}
 		panic(err)
 	}
 
 	return redisResponse.(string)
+}
+
+func DeleteOneKeyValuePair(node string, redisClient *redis.Client, key string) bool {
+	redisResponse, err := redisClient.Do("HDEL", node, key).Result()
+	if err != nil {
+		if err == redis.Nil {
+			fmt.Println("HDEL failed, delete the key failed")
+			return false
+		}
+		panic(err)
+	}
+
+	if redisResponse.(int64) == 1 {
+		return true
+	} else {
+		return false
+	}
 }

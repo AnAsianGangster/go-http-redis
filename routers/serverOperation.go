@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RPC
+// RESTful
 func ServerOperation(router *gin.Engine) *gin.Engine {
-	router.GET("/create-server", controllers.CreateOneServer)
-	router.DELETE("/delete-server", controllers.DeleteOneServer)
+	router.POST("/node", controllers.CreateOneServer)
+	router.DELETE("/node", controllers.DeleteOneServer)
 	return router
 }

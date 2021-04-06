@@ -6,9 +6,7 @@ import (
 	"crypto/md5"
 	"encoding/binary"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 )
@@ -68,25 +66,41 @@ func main() {
 			// send http request here and wait for reply
 
 			if strings.Contains(cq.command, "store") {
-				resp, err := http.PostForm("http://localhost:5000/set", url.Values{"key": {cq.key}, "value": {cq.value}})
+				// query := string(`{"node":"server:1","key":"` + cq.key + `","value":"` + cq.value + `"}`)
+				query := fmt.Sprintf("{\"node\":\"server:1\",\"key\":\"%v\",\"value\":\"%d\"\"}", data)
+				// fmt.Println(query)
+				byte_query := []byte(query)
+
+				req, err := http.NewRequest("POST", "http://localhost:5000/key-value-pair", bytes.NewBuffer(byte_query))
+				req.Header.Set("X-Custom-Header", "myvalue")
+				req.Header.Set("Content-Type", "application/json")
+
+				client := &http.Client{}
+				resp, err := client.Do(req)
 				if err != nil {
-					// handle error
-					fmt.Println(err)
+					panic(err)
 				}
 				defer resp.Body.Close()
+				// defer resp.Body.Close()
 				body, err := ioutil.ReadAll(resp.Body)
 				fmt.Println(string(body))
 			}
 
 			if strings.Contains(cq.command, "fetch") {
-				resp, err := http.PostForm("http://localhost:5000/get", url.Values{"key": {cq.key}})
-				if err != nil {
-					// handle error
-					fmt.Println(err)
-				}
-				defer resp.Body.Close()
-				body, err := ioutil.ReadAll(resp.Body)
-				fmt.Println(string(body))
+
+// /* 				fmt.Println(cq.key)
+// 				query := "http://localhost:5000/key-value-pair?node=server:1&key=" + cq.key
+
+// 				resp, err := http.Get(query)
+// 				if err != nil {
+// 					// handle error
+// 					fmt.Println(err)
+// 				}
+// 				fmt.Println(resp)
+ */
+				// defer resp.Body.Close()
+				// body, err := ioutil.ReadAll(resp.Body)
+				// fmt.Println(string(body))
 			}
 
 		}
