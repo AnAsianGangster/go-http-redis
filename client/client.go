@@ -3,9 +3,11 @@ package main
 import (
 	// "bufio"
 	"bufio"
+	"bytes"
 	"crypto/md5"
 	"encoding/binary"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -67,7 +69,7 @@ func main() {
 
 			if strings.Contains(cq.command, "store") {
 				// query := string(`{"node":"server:1","key":"` + cq.key + `","value":"` + cq.value + `"}`)
-				query := fmt.Sprintf("{\"node\":\"server:1\",\"key\":\"%v\",\"value\":\"%d\"\"}", data)
+				query := fmt.Sprintf("{\"node\":\"server:1\",\"key\":\"%v\",\"value\":\"%d\"\"}")
 				// fmt.Println(query)
 				byte_query := []byte(query)
 
@@ -86,22 +88,21 @@ func main() {
 				fmt.Println(string(body))
 			}
 
-			if strings.Contains(cq.command, "fetch") {
+			// if strings.Contains(cq.command, "fetch") {
 
-// /* 				fmt.Println(cq.key)
-// 				query := "http://localhost:5000/key-value-pair?node=server:1&key=" + cq.key
+			// /* 				fmt.Println(cq.key)
+			// 				query := "http://localhost:5000/key-value-pair?node=server:1&key=" + cq.key
 
-// 				resp, err := http.Get(query)
-// 				if err != nil {
-// 					// handle error
-// 					fmt.Println(err)
-// 				}
-// 				fmt.Println(resp)
- */
-				// defer resp.Body.Close()
-				// body, err := ioutil.ReadAll(resp.Body)
-				// fmt.Println(string(body))
-			}
+			// 				resp, err := http.Get(query)
+			// 				if err != nil {
+			// 					// handle error
+			// 					fmt.Println(err)
+			// 				}
+			// 				fmt.Println(resp)
+			// defer resp.Body.Close()
+			// body, err := ioutil.ReadAll(resp.Body)
+			// fmt.Println(string(body))
+			// }
 
 		}
 	}
