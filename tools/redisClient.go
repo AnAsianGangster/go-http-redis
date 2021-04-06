@@ -1,3 +1,20 @@
+/*
+ * Author: Yang Aobo
+ * Telegram: @AnAsianGangster
+ * Created At: March 17, 2021
+ * Updated At: March 17, 2021
+ * Last Modified By: Yang Aobo
+ */
+
+/**
+ * This package contains tooling functions OR functions return structs that
+ * other packages are dependent on
+ *
+ *
+ * This file takes in redis configuration from /config folder and expose a redis
+ * database connection client/driver
+ * Expose via function **GetRedisClient**
+ */
 package tools
 
 import (

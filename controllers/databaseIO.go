@@ -1,7 +1,23 @@
+/*
+ * Author: Yang Aobo
+ * Telegram: @AnAsianGangster
+ * Created At: March 17, 2021
+ * Updated At: March 18, 2021
+ * Last Modified By: Yang Aobo
+ */
+
+/**
+ * This package contains HTTP handler functions
+ *
+ *
+ * This file contains handler functions that handle I/O operations on key value pairs
+ *
+ * All functions destructure HTTP requests, call database operations, build response
+ * and reply with response
+ */
 package controllers
 
 import (
-	"fmt"
 	"go-http-redis/databases"
 	"go-http-redis/tools"
 	"log"
@@ -19,7 +35,6 @@ func FindOneKeyValuePair(context *gin.Context) {
 	redisClient := tools.GetRedisClient()
 	node := context.Query("node")
 	key := context.Query("key")
-	fmt.Println(node, key)
 	value := databases.FindOneKeyValuePair(node, redisClient, key)
 	context.JSON(200, gin.H{
 		"key":   key,

@@ -2,6 +2,7 @@ package main
 
 import (
 	"go-http-redis/routers"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,5 +15,5 @@ func main() {
 	routers.MountDatabaseIORouter(router)
 	routers.ServerOperation(router)
 
-	router.Run(":5000")
+	router.Run(":" + os.Getenv("SERVER_PORT"))
 }
