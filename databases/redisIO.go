@@ -54,6 +54,7 @@ func UpdateKeyValuePair(serverName string, redisClient *redis.Client, key string
 	}
 }
 
+// TODO expose this to the handlers
 func GetAllKeyValuePair(serverName string, redisClient *redis.Client) []interface{} {
 	redisResponse, err := redisClient.Do("HGETALL", serverName).Result()
 	if err != nil {

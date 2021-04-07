@@ -1,3 +1,6 @@
+# tests
+test-databases:
+	go test ./databases/redisIO.go ./databases/redisIO_test.go
 # development
 dev: export SERVER_PORT=5000
 dev:
