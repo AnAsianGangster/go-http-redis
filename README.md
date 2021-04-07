@@ -59,9 +59,13 @@ sudo apt-get install redis -y
 
 ### How to start
 
+Start service individually on port **5000**
+
 ```shell
-go run main.go
+make dev
 ```
+
+> Other commands are in `makefile`
 
 ## Usage
 
