@@ -27,13 +27,5 @@ func main() {
 	routers.ServerOperation(router)
 	routers.NodeHealth(router)
 
-	// check if running server on go-http-redis independently or under docker
-	var PORT string
-	if os.Getenv("SERVER_PORT") == "" {
-		PORT = "5000"
-	} else {
-		PORT = os.Getenv("SERVER_PORT")
-	}
-
-	router.Run(":" + PORT)
+	router.Run(":" + os.Getenv("SERVER_PORT"))
 }
