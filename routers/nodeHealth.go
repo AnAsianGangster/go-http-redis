@@ -22,8 +22,7 @@ import (
 
 // RESTful
 func NodeHealth(router *gin.Engine) *gin.Engine {
-	router.GET("/node-health", controllers.CheckNodeStatus)
-	router.POST("/node-status", controllers.ChangeNodeStatus)
+	router.GET("/node-health", controllers.CheckNodeStatus())
+	router.POST("/node-status", controllers.ChangeNodeStatus())
 	return router
 }
-

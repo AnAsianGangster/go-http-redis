@@ -31,22 +31,26 @@ type nodeStatusStruct struct {
 	Status string `json:"status"`
 }
 
-func CheckNodeStatus(context *gin.Context) {
-	context.JSON(200, gin.H{
-		"status": NodeStatus,
-	})
+func CheckNodeStatus() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		context.JSON(200, gin.H{
+			"status": NodeStatus,
+		})
+	}
 }
 
-func ChangeNodeStatus(context *gin.Context) {
-	var nodeStatusStruct nodeStatusStruct
-	err := context.BindJSON(&nodeStatusStruct)
-	if err != nil {
-		log.Fatal(err)
+func ChangeNodeStatus() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		var nodeStatusStruct nodeStatusStruct
+		err := context.BindJSON(&nodeStatusStruct)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		NodeStatus = nodeStatusStruct.Status
+
+		context.JSON(200, gin.H{
+			"success": true,
+		})
 	}
-
-	NodeStatus = nodeStatusStruct.Status
-
-	context.JSON(200, gin.H{
-		"success": true,
-	})
 }
