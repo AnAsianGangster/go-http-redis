@@ -6,17 +6,18 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 func Notify(port string) {
 	requestBody, err := json.Marshal(map[string]string{
-		"name":   "server:1", // FIXME make server name dynamic
+		"name":   os.Getenv("SERVER_NAME"), // FIXME make server name dynamic
 		"status": "ALIVE",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	resp, err := http.Post("http://localhost:"+port+"/node-status", "application/json", bytes.NewBuffer(requestBody))
+	resp, err := http.Post("http://go-consistent-hashing:"+port+"/node-status", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		log.Fatal(err)
 	}
