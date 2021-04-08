@@ -12,11 +12,16 @@
 package main
 
 import (
+	"go-http-redis/bootstrapping"
 	"go-http-redis/routers"
 	"os"
 
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	bootstrapping.Notify("6000")
+}
 
 func main() {
 	// create the router
