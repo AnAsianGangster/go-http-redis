@@ -19,6 +19,7 @@ package controllers
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,7 +35,10 @@ type nodeStatusStruct struct {
 func CheckNodeStatus() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		context.JSON(200, gin.H{
-			"status": NodeStatus,
+			"name":     os.Getenv("SERVER_NAME"),
+			"nodeName": os.Getenv("DOCKER_SERVER_NAME"),
+			"port":     os.Getenv("SERVER_PORT"),
+			"status":   NodeStatus,
 		})
 	}
 }

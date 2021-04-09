@@ -11,8 +11,10 @@ import (
 
 func Notify(port string) {
 	requestBody, err := json.Marshal(map[string]string{
-		"name":   os.Getenv("SERVER_NAME"), // FIXME make server name dynamic
-		"status": "ALIVE",
+		"name":     os.Getenv("SERVER_NAME"),
+		"nodeName": os.Getenv("DOCKER_SERVER_NAME"),
+		"port":     os.Getenv("SERVER_PORT"),
+		"status":   "ALIVE",
 	})
 	if err != nil {
 		log.Fatal(err)
