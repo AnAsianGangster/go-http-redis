@@ -21,6 +21,7 @@ import (
 	"go-http-redis/databases"
 	"go-http-redis/tools"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +34,8 @@ type KeyValuePair struct {
 
 func FindOneKeyValuePair(context *gin.Context) {
 	redisClient := tools.GetRedisClient()
-	node := context.Query("node")
+	// node := context.Query("node") // ANCHOR legacy approach
+	node := os.Getenv("DOCKER_SERVER_NAME")
 	key := context.Query("key")
 	value := databases.FindOneKeyValuePair(node, redisClient, key)
 	context.JSON(200, gin.H{
