@@ -31,9 +31,9 @@ func AddKeyValuePair(serverName string, redisClient *redis.Client, key string, v
 	}
 
 	if redisResponse.(int64) == 1 {
-		return true
-	} else {
 		return false
+	} else {
+		return true
 	}
 }
 
