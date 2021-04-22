@@ -2,11 +2,10 @@
 GET http://localhost:5000/key-value-pair?node=server:1&key=email
 
 ###
-POST http://localhost:5000/key-value-pair
+POST http://localhost:6000/key-value-pair
 Content-Type: application/json
 
 {
-    "node": "server:1",
     "key": "aobo1",
     "value": "The king1"
 }

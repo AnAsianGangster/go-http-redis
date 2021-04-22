@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	bootstrapping.Notify("6000")
+	bootstrapping.Notify("3000")
 }
 
 func main() {
